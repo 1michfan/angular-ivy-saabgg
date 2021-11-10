@@ -24,27 +24,22 @@ export class AppComponent {
         name: 'ID',
         columnProp: 'id',
         options: [],
-        selected: [],
       }, {
         name: 'NAME',
         columnProp: 'name',
         options: [],
-        selected: [],
       }, {
         name: 'USERNAME',
         columnProp: 'username',
         options: [],
-        selected: [],
       }, {
         name: 'EMAIL',
         columnProp: 'email',
         options: [],
-        selected: [],
       }, {
         name: 'STATUS',
         columnProp: 'status',
         options: [],
-        selected: [],
       }
     ]
   }
@@ -53,6 +48,7 @@ export class AppComponent {
     this.getRemoteData();
 
     // Overrride default filter behaviour of Material Datatable
+    
     this.dataSource.filterPredicate = this.createFilter();
   }
 
@@ -76,8 +72,8 @@ export class AppComponent {
         "id": 1,
         "name": "Leanne Graham",
         "username": "Bret",
-        "email": "Sincere@april.biz",
-        "phone": "1-770-736-8031 x56442",
+        "email": "a",
+        "phone": "1",
         "website": "hildegard.org",
         "status": "Active"
       },
@@ -85,8 +81,8 @@ export class AppComponent {
         "id": 2,
         "name": "Ervin Howell",
         "username": "Antonette",
-        "email": "Shanna@melissa.tv",
-        "phone": "010-692-6593 x09125",
+        "email": "a",
+        "phone": "1",
         "website": "anastasia.net",
         "status": "Blocked"
       },
@@ -94,8 +90,8 @@ export class AppComponent {
         "id": 3,
         "name": "Clementine Bauch",
         "username": "Samantha",
-        "email": "Nathan@yesenia.net",
-        "phone": "1-463-123-4447",
+        "email": "a",
+        "phone": "2",
         "website": "ramiro.info",
         "status": "Blocked"
       },
@@ -103,8 +99,8 @@ export class AppComponent {
         "id": 4,
         "name": "Patricia Lebsack",
         "username": "Karianne",
-        "email": "Julianne.OConner@kory.org",
-        "phone": "493-170-9623 x156",
+        "email": "b",
+        "phone": "2",
         "website": "kale.biz",
         "status": "Active"
       },
@@ -112,7 +108,7 @@ export class AppComponent {
         "id": 5,
         "name": "Chelsey Dietrich",
         "username": "Kamren",
-        "email": "Lucio_Hettinger@annie.ca",
+        "email": "b",
         "phone": "(254)954-1289",
         "website": "demarco.info",
         "status": "Active"
@@ -154,7 +150,7 @@ export class AppComponent {
         "status": "In-Active"
       },
       {
-        "id": 10,
+        "id": null,
         "name": "Clementina DuBuque",
         "username": "Moriah.Stanton",
         "email": "Rey.Padberg@karina.biz",
@@ -173,8 +169,11 @@ export class AppComponent {
 
   // Called on Filter change
   filterChange(filter, event) {
-    console.log(event);
-    this.filterValues[filter.columnProp] = event;
+    if(event.length > 0) {
+      this.filterValues[filter.columnProp] = event;
+    } else {
+      delete this.filterValues[filter.columnProp];
+    }
     this.dataSource.filter = JSON.stringify(this.filterValues)
   }
 
@@ -199,31 +198,20 @@ export class AppComponent {
 
   // Custom filter method fot Angular Material Datatable
   createFilter() {
-    let filterFunction = function (data: any, filter: string): boolean {
+    let filterFunction = function (data: any, filter: string): boolean {      
       let searchTerms = JSON.parse(filter);
-      let isFilterSet = false;
-      for (const col in searchTerms) {
-        if (searchTerms[col].toString() !== '') {
-          isFilterSet = true;
-        } else {
-          delete searchTerms[col];
-        }
-      }
-
+      
       let nameSearch = () => {
-        let found = false;
-        if (isFilterSet) {
-          for (const col in searchTerms) {
-            searchTerms[col].toString().trim().toLowerCase().split(',').forEach(option => {
-              if (data[col].toString().toLowerCase() === option && isFilterSet) {
-                found = true
-              }
-            });
-          }
-          return found
-        } else {
-          return true;
+        const rowMatch = [];
+        for (const col in searchTerms) {
+          const columnMatch = [];
+          searchTerms[col].forEach(option => {
+            columnMatch.push(data[col] === option);
+          });
+          rowMatch.push(columnMatch.some(Boolean));
         }
+        return rowMatch.every(Boolean);
+        //use .some(Boolean) to use an OR filter
       }
       return nameSearch()
     }
