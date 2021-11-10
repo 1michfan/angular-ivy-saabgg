@@ -52,7 +52,7 @@ export class AppComponent {
   }
 
   // Get unique values from columns to build filter
-  getFilterObject(fullObj, key) {
+  getUnique(fullObj, key) {
     const uniqChk = [];
     fullObj.filter((obj) => {
       if (!uniqChk.includes(obj[key])) {
@@ -161,7 +161,7 @@ export class AppComponent {
     this.dataSource.data = remoteDummyData;
 
     this.filterSelectObj.filter((o) => {
-      o.options = this.getFilterObject(remoteDummyData, o.columnProp);
+      o.options = this.getUnique(remoteDummyData, o.columnProp);
     });
   }
 
