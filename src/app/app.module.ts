@@ -16,7 +16,7 @@ import { HelloComponent } from './hello.component';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
-    RouterModule,
+    RouterModule.forRoot([]),
   ],
   declarations: [AppComponent, HelloComponent],
   bootstrap: [AppComponent],
