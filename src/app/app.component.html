@@ -19,6 +19,8 @@
   <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
 </div>
 
+<app-grid-filter></app-grid-filter>
+
 <table mat-table [dataSource]="dataSource">
 
   <ng-container matColumnDef="id">
