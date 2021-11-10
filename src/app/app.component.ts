@@ -45,14 +45,11 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.getRemoteData();
-
-    // Overrride default filter behaviour of Material Datatable
-    
+    this.getRemoteData(); 
     this.dataSource.filterPredicate = this.createFilter();
   }
 
-  // Get Uniqu values from columns to build filter
+  // Get unique values from columns to build filter
   getFilterObject(fullObj, key) {
     const uniqChk = [];
     fullObj.filter((obj) => {
@@ -177,30 +174,11 @@ export class AppComponent {
     this.dataSource.filter = JSON.stringify(this.filterValues)
   }
 
-  /*
-  createFilter() {
-    let filterFunction = function (data: any, filter: string): boolean {
-      const filterObject = JSON.parse(filter);
-
-      for (const filterProperty in filterObject) {
-        if (!Object.prototype.hasOwnProperty.call(filterObject, filterProperty)) {
-          continue;
-        }
-
-        const searchTerm: string = filterObject[filterProperty] ? filterObject[filterProperty].toString().trim().toLowerCase() : '';
-        const rowValue: string = data[filterProperty] ? data[filterProperty].toString().trim().toLowerCase() : '';
-        return rowValue.indexOf(searchTerm) > -1;
-      }
-      }
-      return filterFunction
-  }
-  */
-
   // Custom filter method fot Angular Material Datatable
   createFilter() {
     let filterFunction = function (data: any, filter: string): boolean {      
       let searchTerms = JSON.parse(filter);
-      
+
       let nameSearch = () => {
         const rowMatch = [];
         for (const col in searchTerms) {
@@ -217,7 +195,6 @@ export class AppComponent {
     }
     return filterFunction
   }
-
 
   // Reset table filters
   resetFilters() {
