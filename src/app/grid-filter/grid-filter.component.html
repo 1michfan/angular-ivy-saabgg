@@ -1,21 +1,7 @@
-<mat-form-field>
-    <mat-label>Cust ID</mat-label>
-<mat-select
-    #gridFilter
-    [(ngModel)]="selected"
-    (ngModelChange)="filterChanged()"
-    multiple>
-    <mat-select-trigger>
-        {{selected.length ? (selected[0]) : 'None'}}
-        <span *ngIf="selected.length > 1">
-            (+{{selected.length - 1}})
-        </span>
-    </mat-select-trigger>
-    <button  class="btn btn-link btn-close" type="button" title="Close" (click)="gridFilter.close()">
-        <i class="fa fa-close"></i>
-    </button>
-    <mat-option *ngFor="let option of options" [value]="option">
-        {{option}}
-    </mat-option>
-</mat-select>
-</mat-form-field>
+<mat-label>Filter {{filter.name}}</mat-label>
+    <mat-select matNativeControl name="{{filter.columnProp}}"
+    multiple [(ngModel)]="filter.modelValue"
+      (ngModelChange)="filterChange(filter,$event)">
+      <mat-option value="">-- Select All --</mat-option>
+      <mat-option [value]="item" *ngFor="let item of filter.options">{{item}}</mat-option>
+    </mat-select>

@@ -20,15 +20,22 @@
   <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
 </div>
 
-<table mat-table [dataSource]="dataSource">
+<table mat-table 
+[dataSource]="dataSource"
+matSort>
 
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> id </th>
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+    ID
+    <app-grid-filter></app-grid-filter>
+  </th>
+      
+      
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> name </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
   </ng-container>
 

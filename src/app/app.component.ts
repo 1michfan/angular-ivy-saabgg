@@ -1,6 +1,6 @@
 // app.component.ts
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,8 @@ export class AppComponent {
   filterValues = {};
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'phone', 'website', 'status'];
-  idFilters: number[];
+  
+  @ViewChild(MatSort) sort: MatSort;
 
   filterSelectObj = [];
   constructor(
@@ -47,6 +48,7 @@ export class AppComponent {
   ngOnInit() {
     this.getRemoteData(); 
     this.dataSource.filterPredicate = this.createFilter();
+    this.dataSource.sort = this.sort;
   }
 
   // Get unique values from columns to build filter
@@ -157,7 +159,6 @@ export class AppComponent {
       }
     ];
     this.dataSource.data = remoteDummyData;
-    this.idFilters = remoteDummyData.map(a => a.id);
 
     this.filterSelectObj.filter((o) => {
       o.options = this.getFilterObject(remoteDummyData, o.columnProp);
@@ -179,7 +180,7 @@ export class AppComponent {
     let filterFunction = function (data: any, filter: string): boolean {      
       let searchTerms = JSON.parse(filter);
 
-      let nameSearch = () => {
+      let search = () => {
         const rowMatch = [];
         for (const col in searchTerms) {
           const columnMatch = [];
@@ -191,7 +192,7 @@ export class AppComponent {
         return rowMatch.every(Boolean);
         //use .some(Boolean) to use an OR filter
       }
-      return nameSearch()
+      return search()
     }
     return filterFunction
   }
