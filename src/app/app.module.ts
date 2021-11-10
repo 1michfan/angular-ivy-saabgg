@@ -8,6 +8,7 @@ import { RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { HelloComponent } from './hello.component';
     MatInputModule,
     MatTableModule,
     RouterModule.forRoot([]),
+    BrowserAnimationsModule,
   ],
   declarations: [AppComponent, HelloComponent],
   bootstrap: [AppComponent],
