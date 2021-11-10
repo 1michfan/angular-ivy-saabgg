@@ -9,17 +9,18 @@
 <div>
   <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
     <mat-label>Filter {{filter.name}}</mat-label>
-    <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
-      (change)="filterChange(filter,$event)">
-      <option value="">-- Select {{filter.name}} --</option>
-      <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
-    </select>
+    <mat-select matNativeControl name="{{filter.columnProp}}"
+    multiple [(ngModel)]="filter.modelValue"
+      (ngModelChange)="filterChange(filter,$event)">
+      <mat-option value="">-- Select {{filter.name}} --</mat-option>
+      <mat-option [value]="item" *ngFor="let item of filter.options">{{item}}</mat-option>
+    </mat-select>
   </mat-form-field>
   &nbsp;
   <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
 </div>
 
-<app-grid-filter [(options)]="displayedColumns"></app-grid-filter>
+<app-grid-filter [(options)]="idFilters" (filterChange)="onFilterChange($event)"></app-grid-filter>
 
 <table mat-table [dataSource]="dataSource">
 

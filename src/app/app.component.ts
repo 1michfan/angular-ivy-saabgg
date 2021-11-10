@@ -12,6 +12,7 @@ export class AppComponent {
   filterValues = {};
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'phone', 'website', 'status'];
+  idFilters: number[];
 
   filterSelectObj = [];
   constructor(
@@ -22,23 +23,28 @@ export class AppComponent {
       {
         name: 'ID',
         columnProp: 'id',
-        options: []
+        options: [],
+        selected: [],
       }, {
         name: 'NAME',
         columnProp: 'name',
-        options: []
+        options: [],
+        selected: [],
       }, {
         name: 'USERNAME',
         columnProp: 'username',
-        options: []
+        options: [],
+        selected: [],
       }, {
         name: 'EMAIL',
         columnProp: 'email',
-        options: []
+        options: [],
+        selected: [],
       }, {
         name: 'STATUS',
         columnProp: 'status',
-        options: []
+        options: [],
+        selected: [],
       }
     ]
   }
@@ -158,6 +164,7 @@ export class AppComponent {
       }
     ];
     this.dataSource.data = remoteDummyData;
+    this.idFilters = remoteDummyData.map(a => a.id);
 
     this.filterSelectObj.filter((o) => {
       o.options = this.getFilterObject(remoteDummyData, o.columnProp);
@@ -166,10 +173,29 @@ export class AppComponent {
 
   // Called on Filter change
   filterChange(filter, event) {
-    //let filterValues = {}
-    this.filterValues[filter.columnProp] = event.target.value.trim().toLowerCase()
+    console.log(event);
+    this.filterValues[filter.columnProp] = event;
     this.dataSource.filter = JSON.stringify(this.filterValues)
   }
+
+  /*
+  createFilter() {
+    let filterFunction = function (data: any, filter: string): boolean {
+      const filterObject = JSON.parse(filter);
+
+      for (const filterProperty in filterObject) {
+        if (!Object.prototype.hasOwnProperty.call(filterObject, filterProperty)) {
+          continue;
+        }
+
+        const searchTerm: string = filterObject[filterProperty] ? filterObject[filterProperty].toString().trim().toLowerCase() : '';
+        const rowValue: string = data[filterProperty] ? data[filterProperty].toString().trim().toLowerCase() : '';
+        return rowValue.indexOf(searchTerm) > -1;
+      }
+      }
+      return filterFunction
+  }
+  */
 
   // Custom filter method fot Angular Material Datatable
   createFilter() {
@@ -184,14 +210,12 @@ export class AppComponent {
         }
       }
 
-      console.log(searchTerms);
-
       let nameSearch = () => {
         let found = false;
         if (isFilterSet) {
           for (const col in searchTerms) {
-            searchTerms[col].trim().toLowerCase().split(' ').forEach(word => {
-              if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
+            searchTerms[col].toString().trim().toLowerCase().split(',').forEach(option => {
+              if (data[col].toString().toLowerCase() === option && isFilterSet) {
                 found = true
               }
             });
