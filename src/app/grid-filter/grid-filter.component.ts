@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class GridFilterComponent implements OnInit {
   
+  selected: any[] = [];
   @Input() options: any[] = [];
   @Output() filterChange = new EventEmitter<any[]>();
 
@@ -16,8 +17,9 @@ export class GridFilterComponent implements OnInit {
   ngOnInit() {
   }
 
-  filterUpdated(value: any[]) {
-    this.filterChange.emit(this.options);
+  filterChanged() {
+    this.filterChange.emit(this.selected);
+    console.log(this.selected);
   }
 
 }
