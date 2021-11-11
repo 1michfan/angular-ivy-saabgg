@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-grid-filter',
@@ -21,7 +20,8 @@ export class GridFilterComponent implements OnInit {
   }
   
   // Get unique values from columns to build filter
-  getUnique(fullObj, key) {
+  getUnique(fullObj, key: string) {
+    console.log(fullObj.typeof);
     const uniqChk = [];
     fullObj.filter((obj) => {
       if (!uniqChk.includes(obj[key])) {
@@ -34,6 +34,17 @@ export class GridFilterComponent implements OnInit {
 
   filterChanged() {
     this.filterChange.emit({fieldName: this.fieldName, selected: this.selected});
+  }
+
+  //TODO this is not working right
+  onSelectAll(selectAll: Boolean) {
+    console.log(selectAll)
+    if (selectAll) {
+      this.selected = this.options;
+    } else {
+      this.selected = [];
+    }
+    this.filterChanged();
   }
 
 }

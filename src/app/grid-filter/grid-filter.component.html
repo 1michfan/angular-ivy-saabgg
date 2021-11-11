@@ -3,6 +3,6 @@
     [(ngModel)]="selected"
     (ngModelChange)="filterChanged()"
     >
-    <mat-option >-- Select All --</mat-option>
+    <mat-option #selectAll (click)="onSelectAll(selectAll.selected)" >-- Select All --</mat-option>
     <mat-option [value]="item" *ngFor="let item of options">{{item}}</mat-option>
 </mat-select>

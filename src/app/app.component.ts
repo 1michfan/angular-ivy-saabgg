@@ -18,49 +18,12 @@ export class AppComponent {
   filterSelectObj = [];
   constructor(
   ) {
-
-    // Object to create Filter for
-    this.filterSelectObj = [
-      {
-        name: 'ID',
-        columnProp: 'id',
-        options: [],
-      }, {
-        name: 'NAME',
-        columnProp: 'name',
-        options: [],
-      }, {
-        name: 'USERNAME',
-        columnProp: 'username',
-        options: [],
-      }, {
-        name: 'EMAIL',
-        columnProp: 'email',
-        options: [],
-      }, {
-        name: 'STATUS',
-        columnProp: 'status',
-        options: [],
-      }
-    ]
   }
 
   ngOnInit() {
     this.getRemoteData(); 
     this.dataSource.filterPredicate = this.createFilter();
     this.dataSource.sort = this.sort;
-  }
-
-  // Get unique values from columns to build filter
-  getUnique(fullObj, key) {
-    const uniqChk = [];
-    fullObj.filter((obj) => {
-      if (!uniqChk.includes(obj[key])) {
-        uniqChk.push(obj[key]);
-      }
-      return obj;
-    });
-    return uniqChk;
   }
 
   // Get remote serve data using HTTP call
