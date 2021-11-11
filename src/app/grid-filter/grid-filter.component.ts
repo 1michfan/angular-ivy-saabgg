@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-grid-filter',
   templateUrl: './grid-filter.component.html',
   styleUrls: ['./grid-filter.component.css']
 })
-export class GridFilterComponent implements OnInit, OnChanges {
+export class GridFilterComponent implements OnChanges {
   
   selected: any[] = [];
   options: any[] = [];
@@ -14,12 +14,6 @@ export class GridFilterComponent implements OnInit, OnChanges {
   @Output() filterChange = new EventEmitter<{fieldName: string, selected: any}>()
 
   constructor() { }
-
-  ngOnInit() {
-      //this.data$.subscribe(d => {
-      //  this.options = this.getUnique(d, this.fieldName);        
-      //})
-  }
 
   ngOnChanges() {
     this.options =  this.getUnique(this.data, this.fieldName);  
