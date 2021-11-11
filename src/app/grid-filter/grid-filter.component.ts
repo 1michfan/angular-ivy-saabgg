@@ -29,7 +29,7 @@ export class GridFilterComponent implements OnChanges {
       }
       return obj;
     });
-    return uniqChk;
+    return uniqChk.sort();
   }
 
   filterChanged() {
