@@ -19,14 +19,11 @@ export class GridFilterComponent implements OnInit {
   ngOnInit() {
     this.options = this.getUnique(this.data, this.fieldName);
   }
-
   
   // Get unique values from columns to build filter
   getUnique(fullObj, key) {
     const uniqChk = [];
-    console.log(key);
     console.log(fullObj);
-    //TODO why is key undefined?
     fullObj.filter((obj) => {
       if (!uniqChk.includes(obj[key])) {
         uniqChk.push(obj[key]);
