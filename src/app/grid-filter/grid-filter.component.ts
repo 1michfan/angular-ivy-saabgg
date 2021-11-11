@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-grid-filter',
   templateUrl: './grid-filter.component.html',
   styleUrls: ['./grid-filter.component.css']
 })
-export class GridFilterComponent implements OnInit {
+export class GridFilterComponent implements OnInit, OnChanges {
   
   selected: any[] = [];
   options: any[] = [];
@@ -16,7 +16,13 @@ export class GridFilterComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.options = this.getUnique(this.data, this.fieldName);
+      //this.data$.subscribe(d => {
+      //  this.options = this.getUnique(d, this.fieldName);        
+      //})
+  }
+
+  ngOnChanges() {
+    this.options =  this.getUnique(this.data, this.fieldName);  
   }
   
   // Get unique values from columns to build filter
@@ -38,7 +44,6 @@ export class GridFilterComponent implements OnInit {
 
   //TODO this is not working right
   onSelectAll(selectAll: Boolean) {
-    console.log(selectAll)
     if (selectAll) {
       this.selected = this.options;
     } else {
