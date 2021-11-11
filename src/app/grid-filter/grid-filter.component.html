@@ -1,6 +1,8 @@
-<mat-label>Filter {{fieldName}}</mat-label>
 <mat-select matNativeControl
-multiple (ngModelChange)="filterChange(filter,$event)">
-    <mat-option value="">-- Select All --</mat-option>
+    multiple
+    [(ngModel)]="selected"
+    (ngModelChange)="filterChanged()"
+    >
+    <mat-option >-- Select All --</mat-option>
     <mat-option [value]="item" *ngFor="let item of options">{{item}}</mat-option>
 </mat-select>

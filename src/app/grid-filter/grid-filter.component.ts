@@ -12,7 +12,7 @@ export class GridFilterComponent implements OnInit {
   options: any[] = [];
   @Input() fieldName: string;
   @Input() data: any[];
-  @Output() filterChange = new EventEmitter<any[]>();
+  @Output() filterChange = new EventEmitter<{fieldName: string, selected: any}>()
 
   constructor() { }
 
@@ -23,7 +23,6 @@ export class GridFilterComponent implements OnInit {
   // Get unique values from columns to build filter
   getUnique(fullObj, key) {
     const uniqChk = [];
-    console.log(fullObj);
     fullObj.filter((obj) => {
       if (!uniqChk.includes(obj[key])) {
         uniqChk.push(obj[key]);
@@ -34,8 +33,7 @@ export class GridFilterComponent implements OnInit {
   }
 
   filterChanged() {
-    this.filterChange.emit(this.selected);
-    console.log(this.selected);
+    this.filterChange.emit({fieldName: this.fieldName, selected: this.selected});
   }
 
 }

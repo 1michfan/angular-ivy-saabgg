@@ -11,7 +11,7 @@
     <mat-label>Filter {{filter.name}}</mat-label>
     <mat-select matNativeControl name="{{filter.columnProp}}"
     multiple [(ngModel)]="filter.modelValue"
-      (ngModelChange)="filterChange(filter,$event)">
+      (ngModelChange)="onFilterChange(filter,$event)">
       <mat-option value="">-- Select All --</mat-option>
       <mat-option [value]="item" *ngFor="let item of filter.options">{{item}}</mat-option>
     </mat-select>
@@ -25,22 +25,23 @@
 matSort>
 
   <ng-container matColumnDef="id">
-  <th mat-header-cell *matHeaderCellDef mat-sort-header>
-    ID
-    <app-grid-filter [fieldName]="'id'" [data]=dataSource.data></app-grid-filter>
-  </th>
-      
-      
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID
+      <app-grid-filter [fieldName]="'id'" [data]=dataSource.data (filterChange)="onFilterChange($event)"></app-grid-filter>
+    </th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> name 
+      <app-grid-filter [fieldName]="'name'" [data]=dataSource.data (filterChange)="onFilterChange($event)"></app-grid-filter>
+    </th>
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="username">
-    <th mat-header-cell *matHeaderCellDef> username </th>
+    <th mat-header-cell *matHeaderCellDef> username 
+      <app-grid-filter [fieldName]="'username'" [data]=dataSource.data (filterChange)="onFilterChange($event)"></app-grid-filter>
+    </th>
     <td mat-cell *matCellDef="let element"> {{element.username}} </td>
   </ng-container>
 

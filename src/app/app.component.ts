@@ -166,11 +166,11 @@ export class AppComponent {
   }
 
   // Called on Filter change
-  filterChange(filter, event) {
-    if(event.length > 0) {
-      this.filterValues[filter.columnProp] = event;
+  onFilterChange(event) {
+    if(event.selected.length > 0) {
+      this.filterValues[event.fieldName] = event.selected;
     } else {
-      delete this.filterValues[filter.columnProp];
+      delete this.filterValues[event.fieldName];
     }
     this.dataSource.filter = JSON.stringify(this.filterValues)
   }
