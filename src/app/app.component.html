@@ -4,7 +4,8 @@
 
 <mat-table 
 [dataSource]="dataSource"
-matSort>
+matSort
+#sort="matSort">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>ID
@@ -21,7 +22,7 @@ matSort>
   </ng-container>
 
   <ng-container matColumnDef="username">
-    <th mat-header-cell *matHeaderCellDef> username 
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> username 
       <app-grid-filter [fieldName]="'username'" 
       [filterService]=gridFilter></app-grid-filter>
     </th>
@@ -29,7 +30,7 @@ matSort>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> email 
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> email 
       <app-grid-filter [fieldName]="'email'" 
       [filterService]=gridFilter></app-grid-filter>
     </th>
@@ -37,7 +38,7 @@ matSort>
   </ng-container>
 
   <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef> phone       
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> phone       
       <app-grid-filter [fieldName]="'phone'" 
       [filterService]=gridFilter></app-grid-filter>
     </th>
@@ -45,14 +46,14 @@ matSort>
   </ng-container>
 
   <ng-container matColumnDef="website">
-    <th mat-header-cell *matHeaderCellDef> website 
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> website 
       <app-grid-filter [fieldName]="'website'" 
       [filterService]=gridFilter></app-grid-filter></th>
     <td mat-cell *matCellDef="let element"> {{element.website}} </td>
   </ng-container>
 
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> status 
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> status 
       <app-grid-filter [fieldName]="'status'" 
       [filterService]=gridFilter></app-grid-filter></th>
     <td mat-cell *matCellDef="let element"> {{element.status}} </td>

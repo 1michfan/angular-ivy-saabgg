@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule, 
   MatFormFieldModule, 
   MatTableModule,
-  MatInputModule } from '@angular/material';
+  MatInputModule,
+  MatSortModule,
+ } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -23,6 +25,7 @@ import { GridFilterService } from './grid-filter.service';
     RouterModule.forRoot([]),
     BrowserAnimationsModule,
     MatSelectModule,
+    MatSortModule,
   ],
   declarations: [
     AppComponent, 
