@@ -1,6 +1,7 @@
 // app.component.ts
 import { Component, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { GridFilterService } from './grid-filter.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent {
 
   filterValues = {};
   dataSource = new MatTableDataSource();
+  gridFilter = new GridFilterService(this.dataSource);
   displayedColumns: string[] = ['id', 'name', 'username', 'email', 'phone', 'website', 'status'];
   
   @ViewChild(MatSort) sort: MatSort;
@@ -21,8 +23,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.getRemoteData(); 
-    this.dataSource.filterPredicate = this.createFilter();
+    this.getRemoteData();
     this.dataSource.sort = this.sort;
   }
 
@@ -130,36 +131,7 @@ export class AppComponent {
 
   // Called on Filter change
   onFilterChange(event) {
-    if(event.selected.length > 0) {
-      this.filterValues[event.fieldName] = event.selected;
-    } else {
-      delete this.filterValues[event.fieldName];
-    }
-    this.dataSource.filter = JSON.stringify(this.filterValues);
-  }
-
-  // Custom filter method fot Angular Material Datatable
-  createFilter() {
-    const filterFunction = function (data: any, filter: string): boolean {      
-      const searchTerms = JSON.parse(filter);
-
-      const search = () => {
-        const rowMatch = [];
-        for (const col in searchTerms) {
-          if (searchTerms.hasOwnProperty(col)) {
-            const columnMatch = [];
-            searchTerms[col].forEach(option => {
-              columnMatch.push(data[col] === option);
-            });
-            rowMatch.push(columnMatch.some(Boolean));
-          }
-        }
-        return rowMatch.every(Boolean);
-        // use .some(Boolean) to use an OR filter
-      }
-      return search();
-    }
-    return filterFunction;
+    this.gridFilter.filterChange(event);
   }
 
   // Reset table filters

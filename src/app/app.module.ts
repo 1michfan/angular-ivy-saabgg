@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridFilterComponent } from './grid-filter/grid-filter.component';
+import { GridFilterService } from './grid-filter.service';
 
 @NgModule({
   imports: [
@@ -27,6 +28,9 @@ import { GridFilterComponent } from './grid-filter/grid-filter.component';
     AppComponent, 
     HelloComponent, 
     GridFilterComponent
+  ],
+  providers: [
+    GridFilterService,
   ],
   bootstrap: [AppComponent],
 })
