@@ -18,9 +18,7 @@ export class AppComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   filterSelectObj = [];
-  constructor(
-  ) {
-  }
+  constructor(  ) {  }
 
   ngOnInit() {
     this.getRemoteData();
@@ -127,19 +125,5 @@ export class AppComponent {
     this.filterSelectObj.filter((o) => {
       o.options = this.getUnique(remoteDummyData, o.columnProp);
     });
-  }
-
-  // Called on Filter change
-  onFilterChange(event) {
-    this.gridFilter.filterChange(event);
-  }
-
-  // Reset table filters
-  resetFilters() {
-    this.filterValues = {};
-    this.filterSelectObj.forEach((value, key) => {
-      value.modelValue = undefined;
-    })
-    this.dataSource.filter = "";
   }
 }

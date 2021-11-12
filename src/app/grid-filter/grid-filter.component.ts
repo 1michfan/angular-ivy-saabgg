@@ -23,15 +23,4 @@ export class GridFilterComponent implements OnChanges {
     this.filterService.filterChange(this.fieldName, this.selected)
   }
 
-  //TODO this is not working right
-  onSelectAll(selectAll: Boolean) {
-    console.log(selectAll);
-    if (selectAll) {
-      this.selected = this.options;
-    } else {
-      this.selected = [];
-    }
-    this.filterChanged();
-  }
-
 }
