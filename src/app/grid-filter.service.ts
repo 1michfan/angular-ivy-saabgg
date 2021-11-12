@@ -33,12 +33,29 @@ export class GridFilterService {
     return filterFunction;
 }
 
-filterChange(event: any) {
-    if (event.selected.length > 0) {
-        this.filterValues[event.fieldName] = event.selected;
-    } else {
-        delete this.filterValues[event.fieldName];
-    }
-    this.dataSource.filter = JSON.stringify(this.filterValues);
-}
+  filterChange(fieldName: string, selected) {
+      if (selected.length > 0) {
+          this.filterValues[fieldName] = selected;
+      } else {
+          delete this.filterValues[fieldName];
+      }
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+  }  
+  
+  // Get unique values from columns to build filter
+  getUnique(fullObj, key: string) {
+    console.log(fullObj.typeof);
+    const uniqChk = [];
+    fullObj.filter((obj) => {
+      if (!uniqChk.includes(obj[key])) {
+        uniqChk.push(obj[key]);
+      }
+      return obj;
+    });
+    return uniqChk.sort();
+  }
+
+  getOptions(fieldName: string) {
+    return this.getUnique(this.dataSource.data, fieldName);
+  }
 }

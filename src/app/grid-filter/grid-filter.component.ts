@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { GridFilterService } from '../grid-filter.service';
 
 @Component({
   selector: 'app-grid-filter',
@@ -10,30 +11,16 @@ export class GridFilterComponent implements OnChanges {
   selected: any[] = [];
   options: any[] = [];
   @Input() fieldName: string;
-  @Input() data: any[];
-  @Output() filterChange = new EventEmitter<{fieldName: string, selected: any}>();
+  @Input() filterService: GridFilterService;
 
   constructor() { }
 
   ngOnChanges() {
-    this.options =  this.getUnique(this.data, this.fieldName);  
-  }
-  
-  // Get unique values from columns to build filter
-  getUnique(fullObj, key: string) {
-    console.log(fullObj.typeof);
-    const uniqChk = [];
-    fullObj.filter((obj) => {
-      if (!uniqChk.includes(obj[key])) {
-        uniqChk.push(obj[key]);
-      }
-      return obj;
-    });
-    return uniqChk.sort();
+    this.options =  this.filterService.getOptions(this.fieldName);  
   }
 
   filterChanged() {
-    this.filterChange.emit({fieldName: this.fieldName, selected: this.selected});
+    this.filterService.filterChange(this.fieldName, this.selected)
   }
 
   //TODO this is not working right

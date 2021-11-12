@@ -6,62 +6,59 @@
     <-- Back to tutorial @ FreakyJolly.com</a>
 </h4>
 
-<div>
-  <mat-form-field *ngFor="let filter of filterSelectObj">
-    <mat-label>Filter {{filter.name}}</mat-label>
-    <mat-select matNativeControl name="{{filter.columnProp}}"
-    multiple [(ngModel)]="filter.modelValue"
-      (ngModelChange)="onFilterChange(filter,$event)">
-      <mat-option value="">-- Select All --</mat-option>
-      <mat-option [value]="item" *ngFor="let item of filter.options">{{item}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  &nbsp;
-  <button mat-flat-button color="warn" (click)="resetFilters()">Reset</button>
-</div>
-
 <table mat-table 
 [dataSource]="dataSource"
 matSort>
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>ID
-      <app-grid-filter [fieldName]="'id'" [data]=dataSource.data (filterChange)="onFilterChange($event)"></app-grid-filter>
+      <app-grid-filter [fieldName]="'id'" [filterService]=gridFilter></app-grid-filter>
     </th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> name 
-      <app-grid-filter [fieldName]="'name'" [data]=dataSource.data (filterChange)="onFilterChange($event)"></app-grid-filter>
+      <app-grid-filter [fieldName]="'name'" [filterService]=gridFilter></app-grid-filter>
     </th>
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="username">
     <th mat-header-cell *matHeaderCellDef> username 
-      <app-grid-filter [fieldName]="'username'" [data]=dataSource.data (filterChange)="onFilterChange($event)"></app-grid-filter>
+      <app-grid-filter [fieldName]="'username'" 
+      [filterService]=gridFilter></app-grid-filter>
     </th>
     <td mat-cell *matCellDef="let element"> {{element.username}} </td>
   </ng-container>
 
   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> email </th>
+    <th mat-header-cell *matHeaderCellDef> email 
+      <app-grid-filter [fieldName]="'email'" 
+      [filterService]=gridFilter></app-grid-filter>
+    </th>
     <td mat-cell *matCellDef="let element"> {{element.email}} </td>
   </ng-container>
 
   <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef> phone </th>
+    <th mat-header-cell *matHeaderCellDef> phone       
+      <app-grid-filter [fieldName]="'phone'" 
+      [filterService]=gridFilter></app-grid-filter>
+    </th>
     <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
   </ng-container>
 
   <ng-container matColumnDef="website">
-    <th mat-header-cell *matHeaderCellDef> website </th>
+    <th mat-header-cell *matHeaderCellDef> website 
+      <app-grid-filter [fieldName]="'website'" 
+      [filterService]=gridFilter></app-grid-filter></th>
     <td mat-cell *matCellDef="let element"> {{element.website}} </td>
   </ng-container>
 
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> status </th>
+    <th mat-header-cell *matHeaderCellDef> status 
+      <app-grid-filter [fieldName]="'status'" 
+      [filterService]=gridFilter></app-grid-filter></th>
     <td mat-cell *matCellDef="let element"> {{element.status}} </td>
   </ng-container>
 
