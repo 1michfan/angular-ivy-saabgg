@@ -24,7 +24,6 @@ export class GridFilterService {
                     rowMatch.push(columnMatch.some(Boolean));
                 }
             }
-            console.log(rowMatch);
             return rowMatch.every(Boolean);
             // use .some(Boolean) to use an OR filter
         };
@@ -44,7 +43,6 @@ export class GridFilterService {
   
   // Get unique values from columns to build filter
   getUnique(fullObj, key: string) {
-    console.log(fullObj.typeof);
     const uniqChk = [];
     fullObj.filter((obj) => {
       if (!uniqChk.includes(obj[key])) {

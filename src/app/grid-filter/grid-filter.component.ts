@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { GridFilterService } from '../grid-filter.service';
 
 @Component({
@@ -25,6 +25,7 @@ export class GridFilterComponent implements OnChanges {
 
   //TODO this is not working right
   onSelectAll(selectAll: Boolean) {
+    console.log(selectAll);
     if (selectAll) {
       this.selected = this.options;
     } else {
