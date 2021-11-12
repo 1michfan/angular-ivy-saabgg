@@ -11,7 +11,7 @@ export class GridFilterComponent implements OnChanges {
   options: any[] = [];
   @Input() fieldName: string;
   @Input() data: any[];
-  @Output() filterChange = new EventEmitter<{fieldName: string, selected: any}>()
+  @Output() filterChange = new EventEmitter<{fieldName: string, selected: any}>();
 
   constructor() { }
 

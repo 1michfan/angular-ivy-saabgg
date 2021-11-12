@@ -135,34 +135,36 @@ export class AppComponent {
     } else {
       delete this.filterValues[event.fieldName];
     }
-    this.dataSource.filter = JSON.stringify(this.filterValues)
+    this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
   // Custom filter method fot Angular Material Datatable
   createFilter() {
-    let filterFunction = function (data: any, filter: string): boolean {      
-      let searchTerms = JSON.parse(filter);
+    const filterFunction = function (data: any, filter: string): boolean {      
+      const searchTerms = JSON.parse(filter);
 
-      let search = () => {
+      const search = () => {
         const rowMatch = [];
         for (const col in searchTerms) {
-          const columnMatch = [];
-          searchTerms[col].forEach(option => {
-            columnMatch.push(data[col] === option);
-          });
-          rowMatch.push(columnMatch.some(Boolean));
+          if (searchTerms.hasOwnProperty(col)) {
+            const columnMatch = [];
+            searchTerms[col].forEach(option => {
+              columnMatch.push(data[col] === option);
+            });
+            rowMatch.push(columnMatch.some(Boolean));
+          }
         }
         return rowMatch.every(Boolean);
-        //use .some(Boolean) to use an OR filter
+        // use .some(Boolean) to use an OR filter
       }
-      return search()
+      return search();
     }
-    return filterFunction
+    return filterFunction;
   }
 
   // Reset table filters
   resetFilters() {
-    this.filterValues = {}
+    this.filterValues = {};
     this.filterSelectObj.forEach((value, key) => {
       value.modelValue = undefined;
     })
