@@ -11,46 +11,58 @@ export class GridFilterService {
 
   createFilter() {
     const filterFunction = function (data: any, filter: string): boolean {
-        const searchTerms = JSON.parse(filter);
+      const searchTerms = JSON.parse(filter);
 
-        const search = () => {
-            const rowMatch = [];
-            for (const col in searchTerms) {
-                if (searchTerms.hasOwnProperty(col)) {
-                    const columnMatch = [];
-                    searchTerms[col].forEach(option => {
-                        columnMatch.push(data[col] === option);
-                    });
-                    rowMatch.push(columnMatch.some(Boolean));
-                }
-            }
-            return rowMatch.every(Boolean);
-            // use .some(Boolean) to use an OR filter
-        };
-        return search();
+      const search = () => {
+        const rowMatch = [];
+        for (const col in searchTerms) {
+          if (searchTerms.hasOwnProperty(col)) {
+            const columnMatch = [];
+            searchTerms[col].forEach((option) => {
+              const val = GridFilterService.getProperty(data, col);
+              let isMatch = val === option;
+              if (val && val.toString().includes(',')) {
+                isMatch = val.includes(option);
+              }
+              columnMatch.push(isMatch);
+            });
+            rowMatch.push(columnMatch.some(Boolean));
+          }
+        }
+        return rowMatch.every(Boolean);
+        // use .some(Boolean) to use an OR filter
+      };
+      return search();
     };
     return filterFunction;
-}
+  }
 
   filterChange(fieldName: string, selected) {
-      if (selected.length > 0) {
-          this.filterValues[fieldName] = selected;
-      } else {
-          delete this.filterValues[fieldName];
-      }
-      this.dataSource.filter = JSON.stringify(this.filterValues);
-  }  
-  
+    if (selected.length > 0) {
+      this.filterValues[fieldName] = selected;
+    } else {
+      delete this.filterValues[fieldName];
+    }
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
   // Get unique values from columns to build filter
   getUnique(fullObj, key: string) {
     const uniqChk = [];
     fullObj.filter((obj) => {
-      if (!uniqChk.includes(obj[key])) {
-        uniqChk.push(obj[key]);
+      const prop = GridFilterService.getProperty(obj, key);
+      if (!uniqChk.includes(prop)) {
+        uniqChk.push(prop);
       }
       return obj;
     });
     return uniqChk.sort();
+  }
+
+  static getProperty(obj, path: string) {
+    const separator = '.';
+    const properties = Array.isArray(path) ? path : path.split(separator);
+    return properties.reduce((prev, curr) => prev && prev[curr], obj);
   }
 
   getOptions(fieldName: string) {

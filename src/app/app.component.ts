@@ -17,7 +17,6 @@ export class AppComponent {
   
   @ViewChild(MatSort) sort: MatSort;
 
-  filterSelectObj = [];
   constructor(  ) {  }
 
   ngOnInit() {
@@ -121,9 +120,5 @@ export class AppComponent {
       }
     ];
     this.dataSource.data = remoteDummyData;
-
-    this.filterSelectObj.filter((o) => {
-      o.options = this.getUnique(remoteDummyData, o.columnProp);
-    });
   }
 }
