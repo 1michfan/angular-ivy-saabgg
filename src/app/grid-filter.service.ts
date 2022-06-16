@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class GridFilterService {
   filterValues = {};
+  public data = new BehaviorSubject<any>([]);
 
   constructor(private dataSource: MatTableDataSource<any>) {
+    dataSource.connect().subscribe((data) => {
+      this.data.next(data);
+    });
     dataSource.filterPredicate = this.createFilter();
   }
 
-  createFilter() {
+  private createFilter() {
     const filterFunction = function (data: any, filter: string): boolean {
       const searchTerms = JSON.parse(filter);
 
@@ -21,7 +26,7 @@ export class GridFilterService {
             searchTerms[col].forEach((option) => {
               const val = GridFilterService.getProperty(data, col);
               let isMatch = val === option;
-              if (val && val.toString().includes(',')) {
+              if (val && val?.toString().includes(',')) {
                 isMatch = val.includes(option);
               }
               columnMatch.push(isMatch);
@@ -47,7 +52,7 @@ export class GridFilterService {
   }
 
   // Get unique values from columns to build filter
-  getUnique(fullObj, key: string) {
+  private getUnique(fullObj, key: string) {
     const uniqChk = [];
     fullObj.filter((obj) => {
       const prop = GridFilterService.getProperty(obj, key);
@@ -59,13 +64,13 @@ export class GridFilterService {
     return uniqChk.sort();
   }
 
-  static getProperty(obj, path: string) {
+  getOptions(fieldName: string) {
+    return this.getUnique(this.dataSource.data, fieldName);
+  }
+
+  static getProperty(obj, path: string): any[] {
     const separator = '.';
     const properties = Array.isArray(path) ? path : path.split(separator);
     return properties.reduce((prev, curr) => prev && prev[curr], obj);
-  }
-
-  getOptions(fieldName: string) {
-    return this.getUnique(this.dataSource.data, fieldName);
   }
 }
