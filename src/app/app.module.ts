@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { MatSelectModule, 
-  MatFormFieldModule, 
-  MatTableModule,
-  MatInputModule,
-  MatSortModule,
- } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -27,14 +26,8 @@ import { GridFilterService } from './grid-filter.service';
     MatSelectModule,
     MatSortModule,
   ],
-  declarations: [
-    AppComponent, 
-    HelloComponent, 
-    GridFilterComponent
-  ],
-  providers: [
-    GridFilterService,
-  ],
+  declarations: [AppComponent, HelloComponent, GridFilterComponent],
+  providers: [GridFilterService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
