@@ -1,7 +1,8 @@
 // app.component.ts
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { BehaviorSubject, isObservable } from 'rxjs';
 import { GridFilterService } from './grid-filter.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { GridFilterService } from './grid-filter.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
   filterValues = {};
   dataSource = new MatTableDataSource();
   gridFilter = new GridFilterService(this.dataSource);
@@ -29,6 +30,10 @@ export class AppComponent {
 
   ngOnInit() {
     this.getRemoteData();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sortingDataAccessor = AppComponent.matSortDataAccessor;
     this.dataSource.sort = this.sort;
   }
 
@@ -127,5 +132,26 @@ export class AppComponent {
       },
     ];
     this.dataSource.data = remoteDummyData;
+  }
+
+  static matSortDataAccessor(item: any, path: string): any {
+    let val = path.split('.').reduce((accumulator: any, key: string) => {
+      if (Array.isArray(accumulator)) {
+        // if array of values, return the first
+        accumulator = accumulator[0];
+      }
+      return accumulator ? accumulator[key] : undefined;
+    }, item);
+
+    if (isObservable(val)) {
+      val = val.pipe();
+    }
+    if (val instanceof BehaviorSubject) {
+      val = val.value;
+    }
+    if (typeof val === 'string' || val instanceof String) {
+      val = val.toLowerCase();
+    }
+    return val;
   }
 }

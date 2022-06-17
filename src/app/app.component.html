@@ -1,69 +1,87 @@
 <div style="padding: 50px;">
+  <h1>Multi-select Column Filters for Material Table</h1>
 
-<h1>Multi-select Column Filters for Material Table</h1>
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        ID
+        <app-grid-filter
+          [fieldName]="'id'"
+          [filterService]="gridFilter"
+        ></app-grid-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
 
-<mat-table 
-[dataSource]="dataSource"
-matSort
-#sort="matSort">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        name
+        <app-grid-filter
+          [fieldName]="'name'"
+          [filterService]="gridFilter"
+        ></app-grid-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID
-      <app-grid-filter [fieldName]="'id'" [filterService]=gridFilter></app-grid-filter>
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        username
+        <app-grid-filter
+          [fieldName]="'username'"
+          [filterService]="gridFilter"
+        ></app-grid-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> name 
-      <app-grid-filter [fieldName]="'name'" [filterService]=gridFilter></app-grid-filter>
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        email
+        <app-grid-filter
+          [fieldName]="'email'"
+          [filterService]="gridFilter"
+        ></app-grid-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="username">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> username 
-      <app-grid-filter [fieldName]="'username'" 
-      [filterService]=gridFilter></app-grid-filter>
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-  </ng-container>
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        phone
+        <app-grid-filter
+          [fieldName]="'phone'"
+          [filterService]="gridFilter"
+        ></app-grid-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> email 
-      <app-grid-filter [fieldName]="'email'" 
-      [filterService]=gridFilter></app-grid-filter>
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-  </ng-container>
+    <ng-container matColumnDef="website">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        website
+        <app-grid-filter
+          [fieldName]="'website'"
+          [filterService]="gridFilter"
+        ></app-grid-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.website }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> phone       
-      <app-grid-filter [fieldName]="'phone'" 
-      [filterService]=gridFilter></app-grid-filter>
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-  </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        status
+        <app-grid-filter
+          [fieldName]="'status'"
+          [filterService]="gridFilter"
+        ></app-grid-filter>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="website">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> website 
-      <app-grid-filter [fieldName]="'website'" 
-      [filterService]=gridFilter></app-grid-filter></th>
-    <td mat-cell *matCellDef="let element"> {{element.website}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> status 
-      <app-grid-filter [fieldName]="'status'" 
-      [filterService]=gridFilter></app-grid-filter></th>
-    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-</mat-table>
-
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </mat-table>
 </div>
 
 <router-outlet></router-outlet>
