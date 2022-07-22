@@ -1,8 +1,12 @@
-<mat-select matNativeControl
-    multiple
-    [(ngModel)]="selected"
-    (ngModelChange)="filterChanged()"
-    (click)="$event.stopPropagation()"
-    >
-    <mat-option [value]="item" *ngFor="let item of options">{{item}}</mat-option>
+<mat-select
+  matNativeControl
+  multiple
+  [(ngModel)]="selected"
+  (ngModelChange)="filterChanged()"
+  (click)="$event.stopPropagation()"
+>
+  <mat-select-trigger>({{ selected?.length }})</mat-select-trigger>
+  <mat-option [value]="item" *ngFor="let item of options">{{
+    item
+  }}</mat-option>
 </mat-select>

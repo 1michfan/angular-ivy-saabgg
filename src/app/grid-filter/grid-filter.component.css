@@ -1,7 +1,3 @@
-::ng-deep .mat-select-value {
-  display: none;
-}
-
 ::ng-deep [mat-sort-header].cdk-program-focused .mat-sort-header-container {
   border-bottom: none;
 }
