@@ -1,3 +1,8 @@
 ::ng-deep [mat-sort-header].cdk-program-focused .mat-sort-header-container {
   border-bottom: none;
 }
+
+::ng-deep .grid-filter-overlay {
+  min-width: fit-content;
+  position: sticky;
+}

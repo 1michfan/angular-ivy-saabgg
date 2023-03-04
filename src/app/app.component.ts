@@ -3,7 +3,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject, isObservable } from 'rxjs';
-import { GridFilterService } from './grid-filter.service';
+import { GridFilterService } from './grid-filter/grid-filter.service';
 
 @Component({
   selector: 'app-root',

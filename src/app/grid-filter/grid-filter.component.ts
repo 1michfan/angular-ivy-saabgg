@@ -1,10 +1,18 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { GridFilterService } from '../grid-filter.service';
+import { MAT_SELECT_CONFIG } from '@angular/material/select';
+import { GridFilterService } from './grid-filter.service';
+
 
 @Component({
   selector: 'app-grid-filter',
   templateUrl: './grid-filter.component.html',
   styleUrls: ['./grid-filter.component.css'],
+  providers: [    
+    {
+      provide: MAT_SELECT_CONFIG,
+      useValue: {overlayPanelClass: 'grid-filter-overlay'}
+    }
+  ],
 })
 export class GridFilterComponent implements OnChanges {
   selected: any[] = [];
