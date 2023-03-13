@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     'phone',
     'website',
     'status',
+    'date',
   ];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '1',
         website: 'hildegard.org',
         status: 'Active',
+        date: new Date('3/13/2023'),
       },
       {
         id: 2,
@@ -57,6 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '1',
         website: 'anastasia.net',
         status: 'Blocked',
+        date: new Date('3/12/2023'),
       },
       {
         id: 3,
@@ -66,6 +69,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '2',
         website: 'ramiro.info',
         status: 'Blocked',
+        date: new Date('3/11/2023'),
       },
       {
         id: 4,
@@ -75,6 +79,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '2',
         website: 'kale.biz',
         status: 'Active',
+        date: new Date('3/10/2023'),
       },
       {
         id: 5,
@@ -84,6 +89,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '(254)954-1289',
         website: 'demarco.info',
         status: 'Active',
+        date: new Date('3/9/2023'),
       },
       {
         id: 6,
@@ -93,6 +99,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '1-477-935-8478 x6430',
         website: 'ola.org',
         status: 'In-Active',
+        date: new Date('3/14/2023'),
       },
       {
         id: 7,
@@ -102,6 +109,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '210.067.6132',
         website: 'elvis.io',
         status: 'Active',
+        date: new Date('3/15/2023'),
       },
       {
         id: 8,
@@ -111,6 +119,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '586.493.6943 x140',
         website: 'jacynthe.com',
         status: 'In-Active',
+        date: new Date('3/16/2023'),
       },
       {
         id: 9,
@@ -120,6 +129,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '(775)976-6794 x41206',
         website: 'conrad.com',
         status: 'In-Active',
+        date: new Date('3/17/2023'),
       },
       {
         id: null,
@@ -129,6 +139,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         phone: '024-648-3804',
         website: 'ambrose.net',
         status: 'Active',
+        date: new Date('3/18/2023'),
       },
     ];
     this.dataSource.data = remoteDummyData;

@@ -25,7 +25,7 @@ export class GridFilterService {
             const columnMatch = [];
             searchTerms[col].forEach((option) => {
               const val = GridFilterService.getProperty(data, col);
-              let isMatch = val === option;
+              let isMatch = val == option;
               if (val && val?.toString().includes(',')) {
                 isMatch = val.includes(option);
               }
@@ -48,8 +48,20 @@ export class GridFilterService {
     } else {
       delete this.filterValues[fieldName];
     }
-    this.dataSource.filter = JSON.stringify(this.filterValues);
+    this.dataSource.filter = JSON.stringify(
+      this.filterValues,
+      this.customStringify
+    );
   }
+
+  customStringify = function (key, value) {
+    if (this[key] instanceof Date) {
+      // JSON.stringify converts timezone specific dates to UTC. Override this by just using a string.
+      return this[key].toString();
+    }
+
+    return value;
+  };
 
   // Get unique values from columns to build filter
   private getUnique(fullObj, key: string) {
