@@ -1,5 +1,6 @@
 <div style="padding: 50px;">
   <h1>Multi-select Column Filters for Material Table</h1>
+  <button (click)="getNewData()">Get New Data</button>
 
   <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">

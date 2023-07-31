@@ -26,12 +26,12 @@ export class GridFilterComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges() {
-    if (this.defaultSelection) {
-        this.selected = this.defaultSelection;
-        this.filterChanged();
-    }
-
     if (this.filterService) {
+      if (this.defaultSelection) {
+          this.selected = this.defaultSelection;
+          this.filterChanged();
+      }
+
       this.filterService.data.subscribe(() => {
         this.options = this.filterService.getOptions(this.fieldName);
       });

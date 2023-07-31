@@ -13,7 +13,7 @@ import { GridFilterService } from './grid-filter/grid-filter.service';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   filterValues = {};
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Person>();
   gridFilter = new GridFilterService(this.dataSource);
   defaultIdSelection = [1];
   displayedColumns: string[] = [
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   // Get remote serve data using HTTP call
   getRemoteData() {
-    const remoteDummyData = [
+    const remoteDummyData: Person[] = [
       {
         id: 1,
         name: 'Leanne Graham',
@@ -146,7 +146,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         roles: [],
       },
       {
-        id: null,
+        id: 10,
         name: 'Clementina DuBuque',
         username: 'Moriah.Stanton',
         email: 'Rey.Padberg@karina.biz',
@@ -158,6 +158,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       },
     ];
     this.dataSource.data = remoteDummyData;
+  }
+
+  getNewData() {
+    const data: Person[] = [...this.dataSource.data];
+    data.forEach(row => {
+      row.id += 1;
+    });
+    this.dataSource.data = data;
   }
 
   static matSortDataAccessor(item: any, path: string): any {
@@ -180,4 +188,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
     return val;
   }
+}
+
+interface Person {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  website: string;
+  status: string;
+  date: Date;
+  roles: string[];
 }

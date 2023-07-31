@@ -8,10 +8,17 @@ export class GridFilterService {
   public data = new BehaviorSubject<any>([]);
 
   constructor(private dataSource: MatTableDataSource<any>) {
-    dataSource.connect().subscribe((data) => {
-      this.data.next(data);
+    dataSource.connect().subscribe(data => {
+        console.log('should update', this.shouldUpdateAvailableValues(dataSource))
+        if (this.shouldUpdateAvailableValues(dataSource))
+            this.data.next(data);
     });
     dataSource.filterPredicate = this.createFilter();
+  }
+
+  private shouldUpdateAvailableValues(dataSource: MatTableDataSource<any>): boolean {
+      return dataSource.data === dataSource.filteredData //If these are equal, applied filters are being toggled, so we don't need to change the available filter lists
+          || this.data.getValue() !== dataSource.data //If these are not equal, the underlying data is changing (i.e. new data is being set from the uow)
   }
 
   private createFilter() {
