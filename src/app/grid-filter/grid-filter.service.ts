@@ -68,11 +68,22 @@ export class GridFilterService {
     const uniqChk = [];
     fullObj.filter((obj) => {
       const prop = GridFilterService.getProperty(obj, key);
-      if (!uniqChk.includes(prop)) {
-        uniqChk.push(prop);
+
+      if (Array.isArray(prop)) {
+        prop.forEach(function (value) {
+          if (!uniqChk.includes(value)) {
+            uniqChk.push(value);
+          }
+        });
+      } else {
+        if (!this.isInArray(uniqChk, prop)) {
+          uniqChk.push(prop);
+        }
       }
+
       return obj;
     });
+
     return uniqChk.sort();
   }
 
@@ -84,5 +95,13 @@ export class GridFilterService {
     const separator = '.';
     const properties = Array.isArray(path) ? path : path.split(separator);
     return properties.reduce((prev, curr) => prev && prev[curr], obj);
+  }
+
+  private isInArray(array: any[], prop: any) {
+    if (prop instanceof Date) {
+      return array.some((a) => a?.getTime() === prop?.getTime());
+    } else {
+      return array.includes(prop);
+    }
   }
 }

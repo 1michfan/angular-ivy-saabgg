@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     'website',
     'status',
     'date',
+    'roles',
   ];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'hildegard.org',
         status: 'Active',
         date: new Date('3/13/2023'),
+        roles: ['admin', 'manager'],
       },
       {
         id: 2,
@@ -61,6 +63,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'anastasia.net',
         status: 'Blocked',
         date: new Date('3/12/2023'),
+        roles: ['admin', 'manager'],
       },
       {
         id: 3,
@@ -71,6 +74,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'ramiro.info',
         status: 'Blocked',
         date: new Date('3/11/2023'),
+        roles: ['user'],
       },
       {
         id: 4,
@@ -81,6 +85,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'kale.biz',
         status: 'Active',
         date: new Date('3/10/2023'),
+        roles: ['user', 'manager'],
       },
       {
         id: 5,
@@ -91,6 +96,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'demarco.info',
         status: 'Active',
         date: new Date('3/9/2023'),
+        roles: ['admin']
       },
       {
         id: 6,
@@ -101,6 +107,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'ola.org',
         status: 'In-Active',
         date: new Date('3/14/2023'),
+        roles: ['manager'],
       },
       {
         id: 7,
@@ -111,6 +118,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'elvis.io',
         status: 'Active',
         date: new Date('3/15/2023'),
+        roles: [],
       },
       {
         id: 8,
@@ -121,6 +129,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'jacynthe.com',
         status: 'In-Active',
         date: new Date('3/16/2023'),
+        roles: [],
       },
       {
         id: 9,
@@ -131,6 +140,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'conrad.com',
         status: 'In-Active',
         date: new Date('3/17/2023'),
+        roles: [],
       },
       {
         id: null,
@@ -141,6 +151,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         website: 'ambrose.net',
         status: 'Active',
         date: new Date('3/18/2023'),
+        roles: ['user'],
       },
     ];
     this.dataSource.data = remoteDummyData;
