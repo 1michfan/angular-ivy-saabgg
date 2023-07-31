@@ -8,6 +8,7 @@
         <app-grid-filter
           [fieldName]="'id'"
           [filterService]="gridFilter"
+          [defaultSelection]="defaultIdSelection"
         ></app-grid-filter>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.id }}</td>

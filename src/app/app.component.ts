@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   filterValues = {};
   dataSource = new MatTableDataSource();
   gridFilter = new GridFilterService(this.dataSource);
+  defaultIdSelection = [1];
   displayedColumns: string[] = [
     'id',
     'name',
