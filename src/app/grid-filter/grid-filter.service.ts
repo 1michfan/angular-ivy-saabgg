@@ -84,7 +84,7 @@ export class GridFilterService {
       return obj;
     });
 
-    return uniqChk.sort();
+    return this.sortArray(uniqChk);
   }
 
   getOptions(fieldName: string) {
@@ -103,5 +103,36 @@ export class GridFilterService {
     } else {
       return array.includes(prop);
     }
+  }
+
+  private sortArray(array: any[]) {
+    return array.sort((n1, n2) => {
+      if (Object.prototype.toString.call(n1) === '[object Date]') {
+        const date1 = this.tryParseDate(n1, null);
+        const date2 = this.tryParseDate(n2, null);
+
+        if (date1 && date2) return date1.getTime() - date2.getTime();
+      }
+
+      if (n1 > n2) return 1;
+      if (n1 < n2) return -1;
+      return 0;
+    });
+  }
+
+  private tryParseDate(
+    str: string,
+    defaultValue: string | Date | null
+  ): Date | null {
+    if (str !== null && str.length > 0) {
+      const tried = Date.parse(str);
+      if (!isNaN(tried)) return new Date(str);
+    }
+    if (defaultValue === null) return null;
+    if (typeof defaultValue === 'string') {
+      const triedDefault = Date.parse(defaultValue);
+      if (!isNaN(triedDefault)) return new Date(defaultValue);
+    }
+    throw 'defaultValue could not be parsed as a date';
   }
 }

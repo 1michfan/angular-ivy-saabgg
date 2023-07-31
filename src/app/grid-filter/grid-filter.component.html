@@ -7,6 +7,6 @@
 >
   <mat-select-trigger>({{ selected?.length }})</mat-select-trigger>
   <mat-option [value]="item" *ngFor="let item of options">{{
-    item
+    item | dynamicPipe: pipe:pipeArgs
   }}</mat-option>
 </mat-select>

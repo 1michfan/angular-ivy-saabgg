@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, Pipe } from '@angular/core';
 import { MAT_SELECT_CONFIG } from '@angular/material/select';
 import { GridFilterService } from './grid-filter.service';
 
@@ -20,6 +20,8 @@ export class GridFilterComponent implements OnChanges {
   @Input() fieldName: string;
   @Input() filterService: GridFilterService;
   @Input() defaultSelection: any[];
+  @Input() pipe: Pipe;
+  @Input() pipeArgs: any[] = [];
 
   constructor() {}
 

@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridFilterComponent } from './grid-filter/grid-filter.component';
 import { GridFilterService } from './grid-filter/grid-filter.service';
+import { DynamicPipe } from './dynamic.pipe';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -25,8 +27,15 @@ import { GridFilterService } from './grid-filter/grid-filter.service';
     MatSelectModule,
     MatSortModule,
   ],
-  declarations: [AppComponent, GridFilterComponent],
-  providers: [GridFilterService],
+  declarations: [
+    AppComponent, 
+    DynamicPipe,
+    GridFilterComponent
+  ],
+  providers: [
+    DatePipe,
+    GridFilterService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
